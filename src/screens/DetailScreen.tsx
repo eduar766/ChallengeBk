@@ -6,15 +6,18 @@ import {
     View,
     StyleSheet,
     ActivityIndicator,
-    Dimensions 
+    Dimensions
 } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation';
 import { BirdDetail } from '../domain/models/BirdDetail';
 import { Card, Text, Title, Paragraph, Divider } from 'react-native-paper';
 import { SvgCssUri } from 'react-native-svg/css';
+import { getBirdDetail } from '../api/birdsApi';
 
 type DetailRouteProp = RouteProp<RootStackParamList, 'Detail'>;
+
+const { width } = Dimensions.get('window');
 
 export const DetailScreen = () => {
     const route = useRoute<DetailRouteProp>();
@@ -27,19 +30,17 @@ export const DetailScreen = () => {
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
 
-    const { width } = Dimensions.get('window');
 
     const fetchBirdDetail = async () => {
         try {
-            const res = await fetch(url);
-            const data: BirdDetail = await res.json();
-            setBird(data);
+          const data = await getBirdDetail(url);
+          setBird(data);
         } catch (e) {
-            console.error('Error al obtener detalles del ave:', e);
+          console.error('Error al obtener detalles del ave:', e);
         } finally {
-            setLoading(false);
+          setLoading(false);
         }
-    };
+      };
 
     useEffect(() => {
         fetchBirdDetail();
