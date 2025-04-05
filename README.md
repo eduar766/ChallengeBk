@@ -43,7 +43,7 @@ Requisitos previos:
 - Android Studio con emulador o dispositivo Android
 - Xcode (solo en macOS) para correr en iOS o en dispositivo iPhone
 
-Instalación del proyecto:
+## Instalación del proyecto:
 
 1. Clonar el repositorio:
 ```bash
@@ -98,4 +98,4 @@ npm run test
 
 Agradezco la oportunidad de participar en este proceso técnico. 
 
-Quedo atento a cualquier observación o sugerencia, Muchas gracias por su tiempo y consideracion.
+Quedo atento a cualquier observación o sugerencia. Muchas gracias por su tiempo y consideracion.
