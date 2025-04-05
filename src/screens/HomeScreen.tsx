@@ -12,6 +12,10 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation';
 
+// Birds Storage
+import { saveBirdsToCache, getCachedBirds } from '../utils/birdsStorage';
+
+
 const PAGE_SIZE = 10;
 
 export const HomeScreen = () => {
@@ -35,17 +39,28 @@ export const HomeScreen = () => {
     setRefreshing(true);
     try {
       const [data, removed] = await Promise.all([fetchBirds(), getRemovedBirds()]);
+      saveBirdsToCache(data); // guardamos nueva data
       setRemovedIds(removed);
       const valid = filterRemoved(data, removed);
       setBirds(valid);
       setDisplayedBirds(valid.slice(0, PAGE_SIZE));
       setPage(1);
     } catch (error) {
-      console.error(error);
+      console.error('Fallo conexión, usando cache:', error);
+      const cache = await getCachedBirds();
+      if (cache) {
+        const removed = await getRemovedBirds();
+        setRemovedIds(removed);
+        const valid = filterRemoved(cache, removed);
+        setBirds(valid);
+        setDisplayedBirds(valid.slice(0, PAGE_SIZE));
+        setPage(1);
+      }
     } finally {
       setRefreshing(false);
     }
   }, [filterRemoved]);
+  
 
   const loadMore = () => {
     if (loadingMore) return;
