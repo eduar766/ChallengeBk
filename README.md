@@ -21,6 +21,20 @@ La app permite visualizar una lista de aves chilenas con los siguientes requisit
 - Layout bloqueado en orientación portrait.
 - README completo con instrucciones de instalación, ejecución y despliegue en dispositivos físicos.
 
+## Estructura del proyecto
+```bash
+src/
+├── api/                  ← llamadas HTTP a la API de aves y detalle
+├── components/           ← componentes reutilizables (si se agregan)
+├── domain/
+│   └── models/           ← interfaces TypeScript (Bird, BirdDetail)
+├── navigation/           ← stack de navegación (Home → Detail)
+├── screens/              ← vistas principales (HomeScreen, DetailScreen)
+├── tests/                ← test unitario para getBirdDetail
+├── utils/                ← almacenamiento local (AsyncStorage)
+```
+
+
 Requisitos previos:
 
 - Node.js ≥ 16
@@ -79,3 +93,9 @@ open ios/ChallengeBk.xcworkspace
 ```bash
 npm run test
 ```
+
+## 🙏 Agradecimientos
+
+Agradezco la oportunidad de participar en este proceso técnico. 
+
+Quedo atento a cualquier observación o sugerencia, Muchas gracias por su tiempo y consideracion.
