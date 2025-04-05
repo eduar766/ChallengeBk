@@ -15,13 +15,14 @@ import { Card, Text, Title, Paragraph, Divider } from 'react-native-paper';
 import { SvgCssUri } from 'react-native-svg/css';
 import { getBirdDetail } from '../api/birdsApi';
 
+
 type DetailRouteProp = RouteProp<RootStackParamList, 'Detail'>;
 
 const { width } = Dimensions.get('window');
 
 export const DetailScreen = () => {
     const route = useRoute<DetailRouteProp>();
-    const { url } = route.params;
+    const { url, uid } = route.params;
 
     const [bird, setBird] = useState<BirdDetail | null>(null);
     const [loading, setLoading] = useState(true);
@@ -33,14 +34,14 @@ export const DetailScreen = () => {
 
     const fetchBirdDetail = async () => {
         try {
-          const data = await getBirdDetail(url);
-          setBird(data);
+            const data = await getBirdDetail(url, uid);
+            setBird(data);
         } catch (e) {
-          console.error('Error al obtener detalles del ave:', e);
+            console.error('Error al obtener detalles del ave:', e);
         } finally {
-          setLoading(false);
+            setLoading(false);
         }
-      };
+    };
 
     useEffect(() => {
         fetchBirdDetail();

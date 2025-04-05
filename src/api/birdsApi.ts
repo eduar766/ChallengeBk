@@ -1,5 +1,7 @@
 import { BirdDetail } from '../domain/models/BirdDetail';
 import { Bird } from '../domain/models/Birds';
+import { saveBirdDetailToCache, getBirdDetailFromCache } from '../utils/birdDetailStorage';
+
 
 export const fetchBirds = async (): Promise<Bird[]> => {
     const response = await fetch('https://aves.ninjas.cl/api/birds');
@@ -8,11 +10,17 @@ export const fetchBirds = async (): Promise<Bird[]> => {
     return data;
 };
 
-export const getBirdDetail = async (url: string): Promise<BirdDetail> => {
+export const getBirdDetail = async (url: string, uid: string): Promise<BirdDetail> => {
+  try {
     const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error('No se pudo obtener el detalle del ave');
-    }
+    if (!response.ok) throw new Error('Error de red');
     const data: BirdDetail = await response.json();
+    await saveBirdDetailToCache(uid, data);
     return data;
+  } catch (e) {
+    console.warn('Fallo fetch, usando cache');
+    const cached = await getBirdDetailFromCache(uid);
+    if (cached) return cached;
+    throw new Error('No se pudo obtener el detalle del ave ni desde red ni desde cache');
+  }
 };

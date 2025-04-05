@@ -28,7 +28,7 @@ export const HomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const handlePress = (bird: Bird) => {
-    navigation.navigate('Detail', { url: bird._links.self });
+    navigation.navigate('Detail', { url: bird._links.self, uid: bird.uid });
   };
 
   const filterRemoved = useCallback((data: Bird[], removed: string[]) => {
@@ -39,7 +39,7 @@ export const HomeScreen = () => {
     setRefreshing(true);
     try {
       const [data, removed] = await Promise.all([fetchBirds(), getRemovedBirds()]);
-      saveBirdsToCache(data); // guardamos nueva data
+      saveBirdsToCache(data);
       setRemovedIds(removed);
       const valid = filterRemoved(data, removed);
       setBirds(valid);
@@ -60,7 +60,7 @@ export const HomeScreen = () => {
       setRefreshing(false);
     }
   }, [filterRemoved]);
-  
+
 
   const loadMore = () => {
     if (loadingMore) return;
