@@ -7,6 +7,11 @@ import { Bird } from '../domain/models/Birds';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { getRemovedBirds, addRemovedBird } from '../utils/storage';
 
+// Importing Navigation and types 
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation';
+
 const PAGE_SIZE = 10;
 
 export const HomeScreen = () => {
@@ -16,6 +21,12 @@ export const HomeScreen = () => {
   const [loadingMore, setLoadingMore] = useState(false);
   const [page, setPage] = useState(1);
   const [removedIds, setRemovedIds] = useState<string[]>([]);
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const handlePress = (bird: Bird) => {
+    console.log('Bird pressed:', bird);
+    navigation.navigate('Detail', { bird });
+  };
 
   const filterRemoved = useCallback((data: Bird[], removed: string[]) => {
     return data.filter(bird => !removed.includes(bird.uid));
@@ -65,7 +76,7 @@ export const HomeScreen = () => {
 
   const renderItem = ({ item }: { item: Bird }) => (
     <Swipeable renderRightActions={() => renderRightActions(item.uid)}>
-      <Card style={{ margin: 8 }}>
+      <Card style={{ margin: 8 }} onPress={() => handlePress(item)}>
         <Card.Title
           title={item.name.spanish}
           subtitle={`${item.name.english} / ${item.name.latin}`}
