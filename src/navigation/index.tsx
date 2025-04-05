@@ -6,7 +6,7 @@ import { DetailScreen } from '../screens/DetailScreen';
 
 export type RootStackParamList = {
   Home: undefined;
-  Detail: { bird: Bird };
+  Detail: { url: string };
 };
 
 

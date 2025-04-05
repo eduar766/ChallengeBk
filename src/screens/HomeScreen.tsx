@@ -24,8 +24,7 @@ export const HomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const handlePress = (bird: Bird) => {
-    console.log('Bird pressed:', bird);
-    navigation.navigate('Detail', { bird });
+    navigation.navigate('Detail', { url: bird._links.self });
   };
 
   const filterRemoved = useCallback((data: Bird[], removed: string[]) => {
