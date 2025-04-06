@@ -81,7 +81,7 @@ export const HomeScreen = () => {
 
   const renderRightActions = (uid: string) => (
     <IconButton
-      icon="delete"
+      icon="trash-can-outline"
       size={28}
       onPress={() => handleRemove(uid)}
       style={{ justifyContent: 'center', marginRight: 12 }}

@@ -94,6 +94,7 @@ open ios/ChallengeBk.xcworkspace
 npm run test
 ```
 
+
 ## 🙏 Agradecimientos
 
 Agradezco la oportunidad de participar en este proceso técnico. 
