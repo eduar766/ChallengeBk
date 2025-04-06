@@ -2,7 +2,7 @@ import { BirdDetail } from '../domain/models/BirdDetail';
 import { Bird } from '../domain/models/Birds';
 import { saveBirdDetailToCache, getBirdDetailFromCache } from '../utils/birdDetailStorage';
 
-
+// Este modulo se encarga de centralizar la comunicacion con la api de aves
 export const fetchBirds = async (): Promise<Bird[]> => {
     const response = await fetch('https://aves.ninjas.cl/api/birds');
     if (!response.ok) throw new Error('Error al obtener las aves');
