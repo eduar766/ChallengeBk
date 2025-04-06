@@ -1,7 +1,4 @@
 import { getBirdDetail } from '../api/birdsApi';
-import { BirdDetail } from '../domain/models/BirdDetail';
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
 
 const mockResponse = {
   uid: "test-bird",
@@ -21,18 +18,17 @@ const mockResponse = {
   }
 };
 
-const server = setupServer(
-  rest.get('https://fakeapi.com/bird', (req, res, ctx) => {
-    return res(ctx.json(mockResponse));
-  })
-);
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+beforeEach(() => {
+  global.fetch = jest.fn(() =>
+    Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve(mockResponse),
+    })
+  ) as jest.Mock;
+});
 
 test('fetches bird detail successfully', async () => {
-  const data = await getBirdDetail('https://fakeapi.com/bird');
+  const data = await getBirdDetail('https://fakeapi.com/bird', 'test-bird');
   expect(data.name.spanish).toBe("Pájaro");
   expect(data.size).toBe("20cm");
 });
