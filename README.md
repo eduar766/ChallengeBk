@@ -1,97 +1,102 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 📱 Aves de Chile - Banco Bice Lab
 
-# Getting Started
+App hecha en React Native CLI + TypeScript que consume la API pública de aves chilenas de https://aves.ninjas.cl/api/birds.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+Desarrollada por [Eduardo Saavedra](https://www.saavedratech.dev/) como parte del test técnico para Banco Bice.
 
-## Step 1: Start Metro
+La app permite visualizar una lista de aves chilenas con los siguientes requisitos técnicos:
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- Lista de aves con nombre en español, inglés y latín, y su imagen miniatura.
+- Scroll infinito de 10 ítems por carga.
+- Pull-to-refresh para actualizar la lista desde la API.
+- Swipe para eliminar aves, con persistencia en almacenamiento local.
+- Pantalla de detalle con información extendida incluyendo:
+  - Imagen principal del ave.
+  - Mapa SVG del hábitat.
+  - Estado de conservación IUCN.
+  - Especie, orden, hábitat, medidas, y curiosidades.
+- Modal para ver imagen en pantalla completa.
+- Persistencia offline tanto para la lista de aves como para el detalle de cada ave.
+- Test unitario mínimo incluido.
+- Layout bloqueado en orientación portrait.
+- README completo con instrucciones de instalación, ejecución y despliegue en dispositivos físicos.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
+## Estructura del proyecto
+```bash
+src/
+├── api/                  ← llamadas HTTP a la API de aves y detalle
+├── components/           ← componentes reutilizables (si se agregan)
+├── domain/
+│   └── models/           ← interfaces TypeScript (Bird, BirdDetail)
+├── navigation/           ← stack de navegación (Home → Detail)
+├── screens/              ← vistas principales (HomeScreen, DetailScreen)
+├── tests/                ← test unitario para getBirdDetail
+├── utils/                ← almacenamiento local (AsyncStorage)
 ```
 
-## Step 2: Build and run your app
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Requisitos previos:
 
-### Android
+- Node.js ≥ 16
+- npm o yarn
+- React Native CLI (`npm install -g react-native-cli`)
+- Android Studio con emulador o dispositivo Android
+- Xcode (solo en macOS) para correr en iOS o en dispositivo iPhone
 
-```sh
-# Using npm
+## Instalación del proyecto:
+
+1. Clonar el repositorio:
+```bash
+git clone https://github.com/eduar766/ChallengeBk
+cd ChallengeBk
+```
+
+2. Instalar las dependencias:
+```bash
+npm install
+```
+
+3. Instalar pods para iOS:
+```bash
+cd ios && pod install && cd ..
+```
+
+4. Para ejecutar
+```bash
+# Android
 npm run android
 
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+# iOS
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+5. Instalación en dispositivo físico:
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+- Android:
+  - Activar el modo desarrollador y la depuración USB en tu teléfono.
+  - Conectarlo por USB.
+  - Ejecutar:
+```bash
+npm run android
+```
 
-## Step 3: Modify your app
+- Iphone:
+  - Abrir el proyecto con Xcode:
+```bash
+open ios/ChallengeBk.xcworkspace
+```
+  - Seleccionar tu dispositivo físico.
+  - En la sección Signing & Capabilities, seleccionar tu Apple ID.
+  - Ejecutar con Cmd + R o el botón ▶.
 
-Now that you have successfully run the app, let's make changes!
+6. Ejecutar los tests:
+```bash
+npm run test
+```
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## 🙏 Agradecimientos
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+Agradezco la oportunidad de participar en este proceso técnico. 
 
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Quedo atento a cualquier observación o sugerencia. Muchas gracias por su tiempo y consideracion.
